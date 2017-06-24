@@ -7,11 +7,24 @@
 
 <body>
     <form method="post">
+        {{form.csrf_token}}
         <dl>
-            {% for x in form %}
-            <dt> {{x.label}} </dt>
-            <dt>{{x(size=30)}}</dt> 
-            {% endfor %}
+            <dt>{{form.site.label}}</dt>
+            <dt>{{form.site(placeholder="Site")}}</dt>
+            {% if form.errors.site %}
+                {% for erro in form.errors.site %}
+             {{erro}} {%endfor%}
+             {%endif%}
+            <dt>{{form.username.label}}</dt>
+            <dt>{{form.username(placeholder="User Name")}}</dt>
+            <dt>{{form.email.label}}</dt>
+            <dt>{{form.email(placeholder="Eamil")}}</dt>
+            <dt>{{form.password.label}}</dt>
+            <dt>{{form.password(placeholder="Passaword")}}</dt>
+            {% if form.errors.password %}
+                {% for erro in form.errors.password %}
+             {{erro}} {%endfor%}
+             {%endif%}
         </dl>
         <p><input type="submit" value="Enviar"> </p>
     </form>
