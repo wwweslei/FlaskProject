@@ -1,22 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
+from wtforms import Form, StringField, PasswordField
 
 
 app = Flask("FlaskProject")
 app.debug = True
 
 
-@app.route("/")
-def hello():
-    return render_template("index.html")
+@app.route('/', methods=('GET', 'POST'))
+def submit():
+    form = FormPassword()
+    return render_template('form.html', form=form)
 
 
-@app.route('/result', methods=['POST', 'GET'])
-def result():
-    if request.method == 'POST':
-        result = request.form
-        return render_template("test.html", result=result)
-
+class FormPassword(Form):
+    site = StringField('Site')
+    username = StringField('User Name')
+    email = StringField('Email')
+    password = PasswordField('Passaword')
 
 if __name__ == '__main__':
     app.run()
- 

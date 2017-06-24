@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>my form</title>
+</head>
+
+<body>
+    <form method="post">
+        <dl>
+            {% for x in form %}
+            <dt> {{x.label}} </dt>
+            <dt>{{x(size=30)}}</dt> 
+            {% endfor %}
+        </dl>
+        <p><input type="submit" value="Enviar"> </p>
+    </form>
+</body>
+
+</html>
