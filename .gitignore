@@ -5,7 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+storage.db
 # Distribution / packaging
 .Python
 env/
