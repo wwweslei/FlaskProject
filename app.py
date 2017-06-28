@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
@@ -22,6 +22,7 @@ def password_form():
         db.session.add(model(form.site.data, form.username.data,
                              form.email.data, form.password.data))
         db.session.commit()
+        flash("Dados salvos com sucesso")
     else:
         forms = [x.data for x in form]
         print(forms)
