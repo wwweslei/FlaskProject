@@ -21,13 +21,11 @@ def password_form():
     if form.validate_on_submit():
         db.session.add(model(form.site.data, form.username.data,
                              form.email.data, form.password.data))
-        db.session.commit()
-        flash("Dados salvos com sucesso")
-    else:
-        forms = [x.data for x in form]
-        print(forms)
-        print(type(form))
-        # print(form.errors)
+        try:
+            db.session.commit()
+            flash("Seus dados foram salvos")
+        except:
+            flash("Site já registrado")
     return render_template('form.html', form=form)
 
 
