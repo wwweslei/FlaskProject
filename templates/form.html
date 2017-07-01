@@ -1,14 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <title>my form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-</head>
-
-<body>
+{% extends "base.html" %}
+{% block title %}Form{% endblock %}
+{% block content %}
     <div class="container">
         <form method="post">
             {{form.csrf_token}}
@@ -21,9 +14,9 @@
                     {% endfor %}
                 {% endif %}
                 {{form.username.label}}
-                {{form.username(placeholder="Username", class="form-control")}}
+                {{form.username(placeholder="wwweslei", class="form-control")}}
                 {{form.email.label}}
-                {{form.email(placeholder="Email", class="form-control")}}
+                {{form.email(placeholder="www.weslei@gmai.com", class="form-control")}}
                 {{form.password.label}}
                 {{form.password(placeholder="Password", class="form-control")}}
                 {% if form.errors.password %} 
@@ -39,13 +32,13 @@
                         </div> 
                     {% else %} 
                         <div class="alert alert-dismissible alert-danger">
-                        <strong>Oh snap! </strong> {{message}}.  
+                        <strong>ERROR! </strong> {{message}}.  
                         </div> 
                     {% endif %}                    
                 {% endfor %}
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
+
 
 
