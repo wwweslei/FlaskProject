@@ -1,8 +1,8 @@
 from flask import Flask, render_template, flash
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
-from flask_wtf import FlaskForm
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
 from datetime import datetime
 
 
@@ -10,18 +10,14 @@ app = Flask("FlaskProject")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ImU4MjczZmFhMzkZWUzMT'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///storage.db'
-app.debug = True
 db = SQLAlchemy(app)
-
-
-@app.route("/index")
-def index():
-    return render_template("index.html")
+app.debug = True
 
 
 @app.route('/', methods=('GET', 'POST'))
 def password_form():
     form = FormPassword()
+    formSearch = FormSearch()
     model = db_sites
     if form.validate_on_submit():
         db.session.add(model(form.site.data, form.username.data,
@@ -31,7 +27,18 @@ def password_form():
             flash("Seus dados foram salvos")
         except:
             flash("Site já registrado")
-    return render_template('form.html', form=form)
+    elif formSearch.validate_on_submit():
+        _requests = formSearch.siteSearch.data
+        search_model = model.query.filter_by(db_site=_requests).first()
+        print(search_model.db_site, search_model.db_password)
+        return render_template('index.html', form=form, formSearch=formSearch,
+                               resp=search_model)
+
+    return render_template('form.html', form=form, formSearch=formSearch)
+
+
+class FormSearch(FlaskForm):
+    siteSearch = StringField('Site', validators=[DataRequired()])
 
 
 class FormPassword(FlaskForm):
@@ -64,6 +71,11 @@ class db_sites(db.Model):
 
     def __repr__(self):
         return '<DB Site %r>' % self.site
+
+    def __getitem__(self, position):
+        self.lista = [self.db_site, self.db_username, self.db_email,
+                      self.db_password, self.db_date]
+        return self.lista[position]
 
 
 if __name__ == '__main__':

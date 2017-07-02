@@ -7,7 +7,7 @@
             {{form.csrf_token}}
                 <legend>Personal information:</legend>
                 {{form.site.label}}
-                {{form.site(autofocus="True", placeholder="Site", class="form-control")}}
+                {{form.site(placeholder="Site", class="form-control")}}
                 {% if form.errors.site %} 
                     {% for erro in form.errors.site %}
                         <span class="label label-warning"> {{erro}}</span><br> 
@@ -37,7 +37,7 @@
                     {% endif %}                    
                 {% endfor %}
         </form>
-    </div>
+
 {% endblock %}
 
 

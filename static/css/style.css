@@ -1,4 +1,6 @@
-#footer{
-    text-align: right;
-    margin-right: 30px;
+#footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 15px 15px 15px 15px;
 }
