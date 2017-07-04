@@ -30,9 +30,8 @@ def password_form():
     elif formSearch.validate_on_submit():
         _requests = formSearch.siteSearch.data
         search_model = model.query.filter_by(db_site=_requests).first()
-        print(search_model.db_site, search_model.db_password)
         return render_template('index.html', form=form, formSearch=formSearch,
-                               resp=search_model)
+                               resp_model=search_model)
 
     return render_template('form.html', form=form, formSearch=formSearch)
 
